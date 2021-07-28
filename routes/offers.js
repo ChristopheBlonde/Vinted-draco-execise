@@ -7,16 +7,8 @@ const findUser = require("../middlewares/Find-account");
 
 router.post("/offer/publish", authorization, async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      price,
-      condition,
-      city,
-      brand,
-      size,
-      color,
-    } = req.fields;
+    const { title, description, price, condition, city, brand, size, color } =
+      req.fields;
 
     const newOffer = await new Offer({
       product_name: title,
@@ -49,7 +41,12 @@ router.post("/offer/publish", authorization, async (req, res) => {
 router.get("/offer", async (req, res) => {
   try {
     let search;
-    let limitOffer = 2;
+    let limitOffer;
+    if (req.query.limit) {
+      limitOffer = Number(req.query.limit);
+    } else {
+      limitOffer = 20;
+    }
     let skipOffer = 0;
     let sort;
     // Method conditions
@@ -124,7 +121,7 @@ if (req.query.priceMax) {
     } else {
       skipOffer = limitOffer * req.query.page - limitOffer;
     }
-
+    console.log(limitOffer);
     let offers = await Offer.find(search)
       .sort(sort)
       .skip(skipOffer)
