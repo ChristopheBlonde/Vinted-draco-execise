@@ -24,13 +24,24 @@ router.post("/offer/publish", authorization, async (req, res) => {
       owner: req.Usersignup,
       product_image: {},
     });
-    const imageUpload = await cloudinary.uploader.upload(
-      req.files.picture.path,
-      {
-        folder: `/Vinted/offers/${newOffer._id}`,
-      }
-    );
-    newOffer.product_image = imageUpload;
+
+    if (req.files) {
+      const pictures = Object.keys(req.files);
+      results = {};
+      pictures.forEach(async (elem) => {
+        const picture = req.files[elem];
+        const result = await cloudinary.uploader.upload(picture.path, {
+          folder: `/Vinted/offers/${newOffer._id}`,
+        });
+        results[elem] = {
+          sucess: true,
+          result: result,
+        };
+        if (Object.keys(results).length === pictures.length) {
+          return (newOffer.product_image = results);
+        }
+      });
+    }
     await newOffer.save();
     res.status(200).json(newOffer);
   } catch (error) {
