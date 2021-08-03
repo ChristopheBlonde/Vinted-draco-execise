@@ -34,7 +34,7 @@ router.post("/offer/publish", authorization, async (req, res) => {
           folder: `/Vinted/offers/${newOffer._id}`,
         });
         results[elem] = {
-          sucess: true,
+          success: true,
           result: result,
         };
         if (Object.keys(results).length === pictures.length) {
