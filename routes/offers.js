@@ -223,7 +223,7 @@ router.get("/offer/:id", async (req, res) => {
         "account.username account.phone account.avatar.secure_url account.avatar.original_filename"
       )
       .select(
-        "product_details product_name product_desciption product_price product_image.secure_url product_image.original_filename owner"
+        "product_details product_name product_desciption product_price product_image"
       );
     // loop to check user account = .populate()
     // viewOffer = await findUser(viewOffer);
