@@ -38,12 +38,14 @@ router.post("/offer/publish", authorization, async (req, res) => {
           result: result,
         };
         if (Object.keys(results).length === pictures.length) {
-          return (newOffer.product_image = results);
+          newOffer.product_image = results;
+          await newOffer.save();
+          res.status(200).json(newOffer);
         }
       });
+    } else {
+      res.status(200).json(newOffer);
     }
-    await newOffer.save();
-    res.status(200).json(newOffer);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
