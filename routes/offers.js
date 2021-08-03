@@ -140,7 +140,7 @@ if (req.query.priceMax) {
       .skip(skipOffer)
       .limit(limitOffer)
       .select(
-        "product_details product_name product_desciption product_price product_image.secure_url product_image.original_filename owner"
+        "product_details product_name product_desciption product_price product_image owner"
       );
     const count = await Offer.find(search).countDocuments();
     // loop for check and return user info = .populate()
