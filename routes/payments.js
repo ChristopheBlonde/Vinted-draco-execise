@@ -39,6 +39,7 @@ router.post("/payment", authorization, async (req, res) => {
 
     if (response.status === "succeeded") {
       res.status(200).json({
+        status: "succeeded",
         user: user,
         article: offerToDelete,
       });
