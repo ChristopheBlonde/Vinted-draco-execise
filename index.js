@@ -24,8 +24,10 @@ cloudinary.config({
 
 const userRoutes = require("./routes/UsersAccounts");
 const offerRoutes = require("./routes/offers");
+const paymentsRoutes = require("./routes/payments");
 app.use(userRoutes);
 app.use(offerRoutes);
+app.use(paymentsRoutes);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Page not found" });

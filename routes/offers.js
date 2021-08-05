@@ -134,7 +134,6 @@ if (req.query.priceMax) {
     } else {
       skipOffer = limitOffer * req.query.page - limitOffer;
     }
-    console.log(limitOffer);
     let offers = await Offer.find(search)
       .sort(sort)
       .skip(skipOffer)
