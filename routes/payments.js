@@ -13,7 +13,7 @@ router.post("/payment", authorization, async (req, res) => {
     const user = req.Usersignup;
 
     const response = await stripe.charges.create({
-      amount: req.fields.price * 100,
+      amount: Math.round(req.fields.price * 100),
       currency: "eur",
       description: articlesInfo.product_name,
       source: tokenStripe,
